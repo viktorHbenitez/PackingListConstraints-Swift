@@ -1,6 +1,6 @@
 # Auto layout constraints
-##  Your goal is to build a very simple dynamic UI, which will have the following appearance on different devices and orientations:
+##  Making the menu expand
 
-![imagen](../master/assets/sketchGoal.png)  
+![imagen](../master/assets/constraintAnimation.gif)  
 
-![imagen](../master/assets/sketch1.png)  
+

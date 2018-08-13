@@ -25,20 +25,34 @@ import UIKit
 class ViewController: UIViewController {
   
   //MARK: IB outlets
-  
-  @IBOutlet var tableView: UITableView!
-  @IBOutlet var buttonMenu: UIButton!
-  @IBOutlet var titleLabel: UILabel!
+    
+    @IBOutlet var tableView: UITableView!
+    @IBOutlet var buttonMenu: UIButton!
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet weak var menuHeightConstraints: NSLayoutConstraint!
+    
   
   //MARK: further class variables
-  
-  var slider: HorizontalItemList!
-  var isMenuOpen = false
-  var items: [Int] = [5, 6, 7]
-  
+    var slider: HorizontalItemList!
+    var isMenuOpen = false
+    var items: [Int] = [5, 6, 7]
+    
   //MARK: class methods
   
   @IBAction func actionToggleMenu(_ sender: AnyObject) {
+    isMenuOpen = !isMenuOpen
+    menuHeightConstraints.constant = isMenuOpen ? 200.0 : 60.0
+    titleLabel.text = isMenuOpen ? "Select item" : "Packing List"
+    
+    UIView.animate(withDuration: 1.0, delay: 0.0,
+                   usingSpringWithDamping: 0.4, initialSpringVelocity: 10.0,
+                   options: .curveEaseIn,
+                   animations: {
+                    self.view.layoutIfNeeded()
+    },completion: nil)
+    
+    
+    
     
   }
   
