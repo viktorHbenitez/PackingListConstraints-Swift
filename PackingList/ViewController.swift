@@ -40,25 +40,38 @@ class ViewController: UIViewController {
   //MARK: class methods
   
   @IBAction func actionToggleMenu(_ sender: AnyObject) {
+
     isMenuOpen = !isMenuOpen
-    menuHeightConstraints.constant = isMenuOpen ? 200.0 : 60.0
+
+    titleLabel.superview?.constraints.forEach { constraint in
+        print("\(constraint.description)") // 1. Show all the constraints
+
+        // UILabel:0x7ff50643ceb0'Packing List'.centerX == UIView:0x7ff50643ccc0.centerX - 150
+        if constraint.firstItem === titleLabel && constraint.firstAttribute == .centerX { // 2. search the const with the format
+            constraint.constant = isMenuOpen ? -130.0 : 0.0  // 3. Change the specific constraint
+            return
+        }
+    }
+    
     titleLabel.text = isMenuOpen ? "Select item" : "Packing List"
+    
+    menuHeightConstraints.constant = isMenuOpen ? 200.0 : 60.0  // IBoutlet height
     
     UIView.animate(withDuration: 1.0, delay: 0.0,
                    usingSpringWithDamping: 0.4, initialSpringVelocity: 10.0,
                    options: .curveEaseIn,
                    animations: {
-                    self.view.layoutIfNeeded()
+                    self.view.layoutIfNeeded()  // Important update constraints wiht animation
+                    
                     // Rotation + when the menu expand
                     let angle: CGFloat = self.isMenuOpen ? .pi / 4 : 0.0
                     self.buttonMenu.transform = CGAffineTransform(rotationAngle: angle)
     },completion: nil)
     
     
-    
-    
   }
   
+    
   func showItem(_ index: Int) {
     print("tapped item \(index)")
   }
