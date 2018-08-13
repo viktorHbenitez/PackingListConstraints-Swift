@@ -49,6 +49,9 @@ class ViewController: UIViewController {
                    options: .curveEaseIn,
                    animations: {
                     self.view.layoutIfNeeded()
+                    // Rotation + when the menu expand
+                    let angle: CGFloat = self.isMenuOpen ? .pi / 4 : 0.0
+                    self.buttonMenu.transform = CGAffineTransform(rotationAngle: angle)
     },completion: nil)
     
     
