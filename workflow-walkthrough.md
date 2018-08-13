@@ -4,7 +4,7 @@
 Loop over the list of constraints affecting the menu bar view, but this time you are looking for a certain constraint to adjust.  
 
 Change the  `CenterX`  TItleLable  
-![imagen](../feature-Rotating/assets/sketch2.gif)  
+![imagen](../master/assets/sketch2.gif)  
 
 ### Steps
 
