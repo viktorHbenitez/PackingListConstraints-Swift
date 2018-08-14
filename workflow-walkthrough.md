@@ -1,8 +1,12 @@
 # Auto layout constraints
 
+**Concept frame and bounds**  
+
+A link:
+[frame & bounds](https://es.stackoverflow.com/questions/44018/como-funciona-frame-position-y-bounds-en-el-layer-de-una-vista)
 
 ##  Animating dinamically created views
-![imagen](../feature-animatingDynamicallyCreatedViewss/assets/sketch5.gif)
+![imagen](../feature-animatingDynamicallyCreatedViews/assets/sketch5.gif)
 
 
 ### Steps
