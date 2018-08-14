@@ -31,7 +31,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HLD-31-bac">
-                                        <rect key="frame" x="337" y="16.5" width="30" height="54"/>
+                                        <rect key="frame" x="337" y="16" width="30" height="54"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                         <state key="normal" title="+"/>
                                         <connections>
@@ -44,7 +44,7 @@
                                     <constraint firstAttribute="height" constant="66" id="Eve-uJ-eN7"/>
                                     <constraint firstAttribute="trailing" secondItem="HLD-31-bac" secondAttribute="trailing" constant="8" id="N2i-pj-C1e"/>
                                     <constraint firstItem="HLD-31-bac" firstAttribute="centerY" secondItem="bGH-8z-HWt" secondAttribute="centerY" id="Ucl-wf-ncy"/>
-                                    <constraint firstItem="bGH-8z-HWt" firstAttribute="centerY" secondItem="ReX-gV-A3Q" secondAttribute="centerY" constant="10" id="ZBp-we-nUy"/>
+                                    <constraint firstItem="bGH-8z-HWt" firstAttribute="centerY" secondItem="ReX-gV-A3Q" secondAttribute="centerY" constant="10" identifier="TitleCenterY" id="ZBp-we-nUy"/>
                                     <constraint firstItem="bGH-8z-HWt" firstAttribute="centerX" secondItem="ReX-gV-A3Q" secondAttribute="centerX" id="pwD-3x-VFb"/>
                                 </constraints>
                             </view>
