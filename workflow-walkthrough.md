@@ -24,12 +24,12 @@ you create a new instance of HorizontalItemList in slider to hold your new items
     if isMenuOpen {
         slider = HorizontalItemList(inView: view)  // Add the component in the view
       
-      slider.didSelectItem = {index in  // 2. Definition
+      slider.didSelectItem = {index in  // 3. Definition
             print("add \(index)")
-            self.items.append(index)  // 2. append index of position image (int)
+            self.items.append(index)  
             self.tableView.reloadData()
             
-            self.actionToggleMenu(self)  // 3. hide the menu again, call the function
+            self.actionToggleMenu(self)  
         }
         self.titleLabel.superview!.addSubview(slider)
         
