@@ -42,6 +42,18 @@ class HorizontalItemList: UIScrollView {
   }
   
   convenience init(inView: UIView) {
+    /* POSITION AND SIZE OF THE CONTAINER ELEMENTS
+     po rect
+     ▿ (414.0, 120.0, 414.0, 80.0)
+     ▿ origin : (414.0, 120.0)
+     - x : 414.0
+     - y : 120.0
+     ▿ size : (414.0, 80.0)
+     - width : 414.0
+     - height : 80.0
+     
+     */
+    // Empieza en el ancho the el frame por eso no se veria sin animation
     let rect = CGRect(x: inView.bounds.width, y: 120.0, width: inView.frame.width, height: 80.0)
     self.init(frame: rect)
     
@@ -59,6 +71,7 @@ class HorizontalItemList: UIScrollView {
       imageView.addGestureRecognizer(tap)
     }
     
+    // SIZE OF THE SCROLL VIEW
     contentSize = CGSize(width: padding * buttonWidth, height:  buttonWidth + 2*padding)
   }
   
@@ -77,7 +90,18 @@ class HorizontalItemList: UIScrollView {
       initialSpringVelocity: 10.0, options: .curveEaseIn,
       animations: {
         self.alpha = 1.0
-        self.center.x -= self.frame.size.width
+        /* po self.center.x
+         621.0
+         po self.frame.size.width
+         414.0
+         */
+//        self.center.x -= self.frame.size.width
+        self.center.x -=  self.frame.size.width
+
+        
+        /*po self.center.x
+         207.0*/
+        
       },
       completion: nil
     )

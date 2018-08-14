@@ -1,67 +1,43 @@
 # Auto layout constraints
-![imagen](../feature-animationBy-ReplacinConstraints/assets/tutorial1.png)
 
-##  Adding Menu Content
 
-you create a new instance of HorizontalItemList in slider to hold your new items, assign a closure expression to didSelectItem and then finally add slider to the menu bar.  
-![imagen](../master/assets/sketch4.gif)  
+##  Animating dinamically created views
+![imagen](../feature-animatingDynamicallyCreatedViewss/assets/sketch5.gif)
+
 
 ### Steps
 
-1. Add Menu content instance  `var slider: HorizontalItemList!` 
+1. Create the image view programatically  
+`let imageView = UIImageView(image: UIImage(named: "summericons_100px_0\(index).png"))` 
 
-2. in HorizontalItemList call the block (declarate, invoke and definition)
+2. Create the constraints and active them
+3. Adding additional dynamic animations
+
 ```swift
 
-  var didSelectItem: ((_ index: Int)->())?  // 1. declarate
- 
-  @objc func didTapImage(_ tap: UITapGestureRecognizer) {
-    didSelectItem?(tap.view!.tag) // 2. Invoke
-  }
-  
-  
-  // **** ADDING MENU CONTENT
-    if isMenuOpen {
-        slider = HorizontalItemList(inView: view)  // Add the component in the view
-      
-      slider.didSelectItem = {index in  // 3. Definition
-            print("add \(index)")
-            self.items.append(index)  
-            self.tableView.reloadData()
-            
-            self.actionToggleMenu(self)  
-        }
-        self.titleLabel.superview!.addSubview(slider)
-        
-    } else {
-        slider.removeFromSuperview()
-    }
-  }
-  
-```
-2. Get the index of the image selected and append in the array of position
-3. Reload the data with the delegate methods
-```swift
-
-  // **** ADDING MENU CONTENT
-    if isMenuOpen {
-        slider = HorizontalItemList(inView: view)  // Add the component in the view
-      
-      slider.didSelectItem = {index in 
-            print("add \(index)")
-            self.items.append(index)  // 2. append index of position image (int)
-            self.tableView.reloadData()  // Reload the TableView and update with the cellForRowAt 
-            
-            self.actionToggleMenu(self)  // hide the menu again, call the function
-        }
-        self.titleLabel.superview!.addSubview(slider)
-        
-    } else {
-        slider.removeFromSuperview()
-    }
-  }
-  
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {}
-
+   // 1. Create the image
+    let imageView = UIImageView(image: UIImage(named: "summericons_100px_0\(index).png"))
+    imageView.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
+    imageView.layer.cornerRadius = 5.0
+    imageView.layer.masksToBounds = true
+    imageView.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(imageView)
+    
+    // 2. Create constraints to the original image
+    let conX = imageView.centerXAnchor.constraint(equalTo:view.centerXAnchor)
+    let conBottom = imageView.bottomAnchor.constraint(equalTo:view.bottomAnchor, constant: imageView.frame.height)
+    let conWidth = imageView.widthAnchor.constraint(equalTo:view.widthAnchor, multiplier: 0.33, constant: -50.0)
+    let conHeight = imageView.heightAnchor.constraint(equalTo:imageView.widthAnchor)
+    
+    NSLayoutConstraint.activate([conX, conBottom, conWidth, conHeight])
+    
+    // 3. Animate and change constraints
+    UIView.animate(withDuration: 0.8, delay: 0.0,
+                   usingSpringWithDamping:  0.4, initialSpringVelocity: 0.0,
+                   animations: {
+                    conBottom.constant = -imageView.frame.size.height/2
+                    conWidth.constant = 0.0  // return to the original size
+                    self.view.layoutIfNeeded()
+    },completion: nil)
   
 ```
