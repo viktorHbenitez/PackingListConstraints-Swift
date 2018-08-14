@@ -73,7 +73,7 @@ class ViewController: UIViewController {
         
     }
     
-    titleLabel.text = isMenuOpen ? "Select item !!!!!!!" : "Packing List"
+    titleLabel.text = isMenuOpen ? "Select item" : "Packing List"
     self.view.layoutIfNeeded()
     
     menuHeightConstraints.constant = isMenuOpen ? 200.0 : 60.0  // IBoutlet height
@@ -88,19 +88,21 @@ class ViewController: UIViewController {
                     let angle: CGFloat = self.isMenuOpen ? .pi / 4 : 0.0
                     self.buttonMenu.transform = CGAffineTransform(rotationAngle: angle)
     },completion: nil)
-//
-//    if isMenuOpen {
-//        slider = HorizontalItemList(inView: view)
-//        slider.didSelectItem = {index in
-//            print("add \(index)")
-//            self.items.append(index)
-//            self.tableView.reloadData()
-//            self.actionToggleMenu(self)
-//        }
-//        self.titleLabel.superview!.addSubview(slider)
-//    } else {
-//        slider.removeFromSuperview()
-//    }
+
+    // **** ADDING MENU CONTENT
+    if isMenuOpen {
+        slider = HorizontalItemList(inView: view)  // Add the component in the view
+        slider.didSelectItem = {index in
+            print("add \(index)")
+            self.items.append(index)  // 2. append index of position image (int)
+            self.tableView.reloadData()
+            
+            self.actionToggleMenu(self)  // 3. hide the menu again, call the function
+        }
+        self.titleLabel.superview!.addSubview(slider)
+    } else {
+        slider.removeFromSuperview()
+    }
   }
   
     
@@ -134,8 +136,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as UITableViewCell
+    // Set the image and title in the tableview
     cell.accessoryType = .none
-    cell.textLabel?.text = itemTitles[items[indexPath.row]]
+    cell.textLabel?.text = itemTitles[items[indexPath.row]]  // set the title
     cell.imageView?.image = UIImage(named: "summericons_100px_0\(items[indexPath.row]).png")
     return cell
   }

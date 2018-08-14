@@ -28,7 +28,7 @@ import UIKit
 //
 class HorizontalItemList: UIScrollView {
   
-  var didSelectItem: ((_ index: Int)->())?
+  var didSelectItem: ((_ index: Int)->())?  // 1. declarate
   
   let buttonWidth: CGFloat = 60.0
   let padding: CGFloat = 10.0
@@ -63,7 +63,7 @@ class HorizontalItemList: UIScrollView {
   }
   
   @objc func didTapImage(_ tap: UITapGestureRecognizer) {
-    didSelectItem?(tap.view!.tag)
+    didSelectItem?(tap.view!.tag) // set the int position
   }
   
   override func didMoveToSuperview() {
