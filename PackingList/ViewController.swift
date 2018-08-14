@@ -44,16 +44,37 @@ class ViewController: UIViewController {
     isMenuOpen = !isMenuOpen
 
     titleLabel.superview?.constraints.forEach { constraint in
-        print("\(constraint.description)") // 1. Show all the constraints
+//        print("\(constraint.description)") // 1. Show all the constraints
 
         // UILabel:0x7ff50643ceb0'Packing List'.centerX == UIView:0x7ff50643ccc0.centerX - 150
         if constraint.firstItem === titleLabel && constraint.firstAttribute == .centerX { // 2. search the const with the format
-            constraint.constant = isMenuOpen ? -130.0 : 0.0  // 3. Change the specific constraint
+            constraint.constant = isMenuOpen ? -(self.view.frame.size.width / 4) : 0.0  // 3. Change the specific constraint
             return
         }
+        
+        if constraint.identifier == "TitleCenterY"{
+            constraint.isActive = false
+            
+            // Adding constraints programmatically to change multiplier atribute
+            // Title.CenterY = Menu.CenterY * 0.67 + 0.0
+            let newConstraint = NSLayoutConstraint(item: titleLabel,
+                                                   attribute: .centerY,
+                                                   relatedBy: .equal,
+                                                   toItem: titleLabel.superview!,
+                                                   attribute: .centerY,
+                                                   multiplier: isMenuOpen ? 0.67 : 1.0,
+                                                   constant: 10.0)
+            
+            newConstraint.identifier = "TitleCenterY"
+            newConstraint.isActive = true
+            
+            return
+        }
+        
     }
     
-    titleLabel.text = isMenuOpen ? "Select item" : "Packing List"
+    titleLabel.text = isMenuOpen ? "Select item !!!!!!!" : "Packing List"
+    self.view.layoutIfNeeded()
     
     menuHeightConstraints.constant = isMenuOpen ? 200.0 : 60.0  // IBoutlet height
     
@@ -67,8 +88,19 @@ class ViewController: UIViewController {
                     let angle: CGFloat = self.isMenuOpen ? .pi / 4 : 0.0
                     self.buttonMenu.transform = CGAffineTransform(rotationAngle: angle)
     },completion: nil)
-    
-    
+//
+//    if isMenuOpen {
+//        slider = HorizontalItemList(inView: view)
+//        slider.didSelectItem = {index in
+//            print("add \(index)")
+//            self.items.append(index)
+//            self.tableView.reloadData()
+//            self.actionToggleMenu(self)
+//        }
+//        self.titleLabel.superview!.addSubview(slider)
+//    } else {
+//        slider.removeFromSuperview()
+//    }
   }
   
     

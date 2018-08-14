@@ -1,40 +1,69 @@
 # Auto layout constraints
-##  Animating UILabel constraints
+![imagen](../PackingListConstraints-Swift/assets/tutorial1.png)
 
-Loop over the list of constraints affecting the menu bar view, but this time you are looking for a certain constraint to adjust.  
+##  Animating by replacing constraints
+
+If you want to modify the multiplier, or change a constraint in any other way, you’ll need to remove the constraint then add a new one in its place.  
 
 Change the  `CenterX`  TItleLable  
-![imagen](../master/assets/sketch2.gif)  
+![imagen](../PackingListConstraints-Swift/assets/sketch3.gif)  
 
 ### Steps
 
-1. Print all constraints  
+1. Assing an identifier to `CenterY`  constraint 
+
+2. Print all constraints
 ```swift
+
+    titleLabel.superview?.constraints.forEach { constraint in
+            print("\(constraint.description)") // 1. Show all the constraints
+
+            
 <NSLayoutConstraint:0x6040002927f0 UIView:0x7fa584f193b0.height == 66   (active)>
 <NSLayoutConstraint:0x604000291e40 UILabel:0x7fa584f195a0'Packing List'.centerY == UIView:0x7fa584f193b0.centerY + 10   (active)>
 <NSLayoutConstraint:0x60400028cc10 UILabel:0x7fa584f195a0'Packing List'.centerX == UIView:0x7fa584f193b0.centerX   (active)>
 <NSLayoutConstraint:0x604000289ec0 H:[UIButton:0x7fa584c2cdb0'+']-(8)-|   (active, names: '|':UIView:0x7fa584f193b0 )>
 <NSLayoutConstraint:0x604000284830 UIButton:0x7fa584c2cdb0'+'.centerY == UILabel:0x7fa584f195a0'Packing List'.centerY   (active)>
 ```
-2. Search the specific constraint  
-3. Change the constraint  
-4. Update with animation  
+2. Search the specific constraint  in foreach loop
+3. Change the constraint: Delete the  CenterY and create other again (because we want to modify the multiplier)
 
-
-
-```swift
-
- titleLabel.superview?.constraints.forEach { constraint in
-        print("\(constraint.description)") // 1. Show all the constraints
-
-        // UILabel:0x7ff50643ceb0'Packing List'.centerX == UIView:0x7ff50643ccc0.centerX - 150
-        if constraint.firstItem === titleLabel && constraint.firstAttribute == .centerX { // 2. search the const with the format
-            constraint.constant = isMenuOpen ? -130.0 : 0.0  // 3. Change the specific constraint
+```swift 
+ 
+        if constraint.identifier == "TitleCenterY"{  // 2 search the constraint with identifier
+            constraint.isActive = false  // 3. Delete the constraint
+            
+            // Adding constraints programmatically to change multiplier atribute
+            
+            /* 3. CREATE THE CONSTRAINT */
+            // equation : Title.CenterY = Menu.CenterY * 0.67 + 0.0
+            let newConstraint = NSLayoutConstraint(item: titleLabel,
+                                                   attribute: .centerY,
+                                                   relatedBy: .equal,
+                                                   toItem: titleLabel.superview!,
+                                                   attribute: .centerY,
+                                                   multiplier: isMenuOpen ? 0.67 : 1.0,
+                                                   constant: 10.0)
+            
+            newConstraint.identifier = "TitleCenterY"  // Add identifier
+            newConstraint.isActive = true // Active the new constraint
+            
             return
         }
-        
- }
-    
+```
+**Description the elements of the new constraint**  
+The parameters are as follows:
+• `item`: The first item in the equation; in this case, the title label.
+• `attribute`: The attribute of the first item of the new constraint.
+• `relatedBy`: A constraint can represent either a mathematical equality or an inequality. In this book, you’ll only use equality expressions, so here you use .equal to represent this relationship.
+• `toItem`: The second item in the constraint equation; in this case, it’s your title’s superview.
+• `attribute`: The attribute of the second item of the new constraint.
+• `multiplier`: The equation multiplier as discussed earlier.
+• `constant`: The equation constant.
+
+4. Update with animation  
+
+```swift
     // titleLabel.text = isMenuOpen ? "Select item" : "Packing List"
     // menuHeightConstraints.constant = isMenuOpen ? 200.0 : 60.0  // IBoutlet height
     
