@@ -1,12 +1,12 @@
 # Auto layout constraints
-![imagen](../PackingListConstraints-Swift/assets/tutorial1.png)
+![imagen](../feature-animationBy-ReplacinConstraints/assets/tutorial1.png)
 
 ##  Animating by replacing constraints
 
 If you want to modify the multiplier, or change a constraint in any other way, you’ll need to remove the constraint then add a new one in its place.  
 
 Change the  `CenterX`  TItleLable  
-![imagen](../PackingListConstraints-Swift/assets/sketch3.gif)  
+![imagen](../feature-animationBy-ReplacinConstraints/assets/sketch3.gif)  
 
 ### Steps
 
