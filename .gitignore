@@ -15,8 +15,8 @@ DerivedData/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-xcuserdata/
-
+xcuserdata/*
+!/xcuserdata/victorBenitez.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
 ## Other
 *.moved-aside
 *.xccheckout
@@ -76,3 +76,6 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+# NB: this is exclusive with OPTION 2 below
+xcuserdata/
+.xcuserdata/
